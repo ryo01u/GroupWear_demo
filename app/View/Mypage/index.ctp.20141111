@@ -1,0 +1,321 @@
+  <?php echo $this->element('header'); ?>
+
+  <header>
+  <div class="container">
+  <section class="row">
+  <h1>
+  	<img src="<?php echo $this->html->webroot( "img/logo.png");?>" alt="画像" />
+  	
+  	</h1>
+  </section>
+  </div>
+  </header>
+  <nav>
+  <div class="container">
+  <ul class="row">
+  <li class="col-sm-3 on">MyPage</li>
+  <li class="col-sm-3">Search</li>
+  <!--<li class="col-sm-3">MyPage</li>
+  <li class="col-sm-3">Search</li>-->
+  </ul>
+  </div>
+  </nav>
+  <article>
+  <div class="container">
+  <ul class="row">
+  <li class="col-sm-3">
+  <section>
+  <dl>
+  <dt><img src="<?php echo $this->html->webroot( "img/data/i02.png");?>" alt="画像" /></dt>
+  <dd>
+  
+  <!--<img src="<?php echo $this->html->webroot( "img/data/i02.png");?>" alt="画像" />-->
+  <p>嵯峨 博士</p>
+  <p>Saga Hiroshi</p>
+  <p>内戦 111</p>
+  </dd>
+  </dl>
+
+
+  <p>モバイル事業部</p>
+  <p>第3グループ</p>
+  <p>モバイル事業部</p>
+  <p>第3グループ</p>
+  <p>モバイル事業部</p>
+  <p>第3グループ</p>
+  <p>モバイル事業部</p>
+  <p>第3グループ</p>
+  </section>
+  </li>
+  <li class="col-sm-3">
+  <section>
+  <dl>
+  <dt><img src="<?php echo $this->html->webroot( "img/data/i02.png");?>" alt="画像" /></dt>
+  <dd>
+  <p>嵯峨 博士</p>
+  <p>Saga Hiroshi</p>
+  <p>内戦 111</p>
+  </dd>
+  </dl>
+  <p>モバイル事業部</p>
+  <p>第3グループ</p>
+  <p>モバイル事業部</p>
+  <p>第3グループ</p>
+  <p>モバイル事業部</p>
+  <p>第3グループ</p>
+  <p>モバイル事業部</p>
+  <p>第3グループ</p>
+  </section>
+  </li>
+  <li class="col-sm-3">
+  <section>
+  <dl>
+  <dt><img src="<?php echo $this->html->webroot( "img/data/i02.png");?>" alt="画像" /></dt>
+  <dd>
+  <p>嵯峨 博士</p>
+  <p>Saga Hiroshi</p>
+  <p>内戦 111</p>
+  </dd>
+  </dl>
+  <p>モバイル事業部</p>
+  <p>第3グループ</p>
+  <p>モバイル事業部</p>
+  <p>第3グループ</p>
+  <p>モバイル事業部</p>
+  <p>第3グループ</p>
+  <p>モバイル事業部</p>
+  <p>第3グループ</p>
+  </section>
+  </li>
+  <li class="col-sm-3">
+  <section>
+  <dl>
+  <dt><img src="<?php echo $this->html->webroot( "img/data/i02.png");?>" alt="画像" /></dt>
+  <dd>
+  <p>嵯峨 博士</p>
+  <p>Saga Hiroshi</p>
+  <p>内戦 111</p>
+  </dd>
+  </dl>
+  <p>モバイル事業部</p>
+  <p>第3グループ</p>
+  <p>モバイル事業部</p>
+  <p>第3グループ</p>
+  <p>モバイル事業部</p>
+  <p>第3グループ</p>
+  <p>モバイル事業部</p>
+  <p>第3グループ</p>
+  </section>
+  </li>
+  <li class="col-sm-3">
+  <section>
+  <dl>
+  <dt><img src="<?php echo $this->html->webroot( "img/data/i02.png");?>" alt="画像" /></dt>
+  <dd>
+  <p>嵯峨 博士</p>
+  <p>Saga Hiroshi</p>
+  <p>内戦 111</p>
+  </dd>
+  </dl>
+  <p>モバイル事業部</p>
+  <p>第3グループ</p>
+  <p>モバイル事業部</p>
+  <p>第3グループ</p>
+  <p>モバイル事業部</p>
+  <p>第3グループ</p>
+  <p>モバイル事業部</p>
+  <p>第3グループ</p>
+  </section>
+  </li>
+  <li class="col-sm-3">
+  <section>
+  <dl>
+  <dt><img src="<?php echo $this->html->webroot( "img/data/i02.png");?>" alt="画像" /></dt>
+  <dd>
+  <p>嵯峨 博士</p>
+  <p>Saga Hiroshi</p>
+  <p>内戦 111</p>
+  </dd>
+  </dl>
+  <p>モバイル事業部</p>
+  <p>第3グループ</p>
+  <p>モバイル事業部</p>
+  <p>第3グループ</p>
+  <p>モバイル事業部</p>
+  <p>第3グループ</p>
+  <p>モバイル事業部</p>
+  <p>第3グループ</p>
+  </section>
+  </li>
+  <li class="col-sm-3">
+  <section>
+  <dl>
+  <dt><img src="<?php echo $this->html->webroot( "img/data/i02.png");?>" alt="画像" /></dt>
+  <dd>
+  <p>嵯峨 博士</p>
+  <p>Saga Hiroshi</p>
+  <p>内戦 111</p>
+  </dd>
+  </dl>
+  <p>モバイル事業部</p>
+  <p>第3グループ</p>
+  <p>モバイル事業部</p>
+  <p>第3グループ</p>
+  <p>モバイル事業部</p>
+  <p>第3グループ</p>
+  <p>モバイル事業部</p>
+  <p>第3グループ</p>
+  </section>
+  </li>
+  <li class="col-sm-3">
+  <section>
+  <dl>
+  <dt><img src="<?php echo $this->html->webroot( "img/data/i02.png");?>" alt="画像" /></dt>
+  <dd>
+  <p>嵯峨 博士</p>
+  <p>Saga Hiroshi</p>
+  <p>内戦 111</p>
+  </dd>
+  </dl>
+  <p>モバイル事業部</p>
+  <p>第3グループ</p>
+  <p>モバイル事業部</p>
+  <p>第3グループ</p>
+  <p>モバイル事業部</p>
+  <p>第3グループ</p>
+  <p>モバイル事業部</p>
+  <p>第3グループ</p>
+  </section>
+  </li>
+  <li class="col-sm-3">
+  <section>
+  <dl>
+  <dt><img src="<?php echo $this->html->webroot( "img/data/i02.png");?>" alt="画像" /></dt>
+  <dd>
+  <p>嵯峨 博士</p>
+  <p>Saga Hiroshi</p>
+  <p>内戦 111</p>
+  </dd>
+  </dl>
+  <p>モバイル事業部</p>
+  <p>第3グループ</p>
+  <p>モバイル事業部</p>
+  <p>第3グループ</p>
+  <p>モバイル事業部</p>
+  <p>第3グループ</p>
+  <p>モバイル事業部</p>
+  <p>第3グループ</p>
+  </section>
+  </li>
+  <li class="col-sm-3">
+  <section>
+  <dl>
+  <dt>
+
+<img src="<?php echo $this->html->webroot( "img/data/i02.png");?>" alt="画像" />
+
+aaaaaaaa
+</dt>
+  <dd>
+  <p>嵯峨 博士</p>
+  <p>Saga Hiroshi</p>
+  <p>内戦 111</p>
+  </dd>
+  </dl>
+  <p>モバイル事業部</p>
+  <p>第3グループ</p>
+  <p>モバイル事業部</p>
+  <p>第3グループ</p>
+  <p>モバイル事業部</p>
+  <p>第3グループ</p>
+  <p>モバイル事業部</p>
+  <p>第3グループ</p>
+  </section>
+  </li>
+  <li class="col-sm-3">
+  <section>
+  <dl>
+  <dt><img src="<?php echo $this->html->webroot( "img/data/i02.png");?>" alt="画像" /></dt>
+  <dd>
+  <p>嵯峨 博士</p>
+  <p>Saga Hiroshi</p>
+  <p>内戦 111</p>
+  </dd>
+  </dl>
+  <p>モバイル事業部</p>
+  <p>第3グループ</p>
+  <p>モバイル事業部</p>
+  <p>第3グループ</p>
+  <p>モバイル事業部</p>
+  <p>第3グループ</p>
+  <p>モバイル事業部</p>
+  <p>第3グループ</p>
+  </section>
+  </li>
+  <li class="col-sm-3">
+  <section>
+  <dl>
+  <dt><img src="<?php echo $this->html->webroot( "img/data/i02.png");?>" alt="画像" /></dt>
+  <dd>
+  <p>嵯峨 博士</p>
+  <p>Saga Hiroshi</p>
+  <p>内戦 111</p>
+  </dd>
+  </dl>
+  <p>モバイル事業部</p>
+  <p>第3グループ</p>
+  <p>モバイル事業部</p>
+  <p>第3グループ</p>
+  <p>モバイル事業部</p>
+  <p>第3グループ</p>
+  <p>モバイル事業部</p>
+  <p>第3グループ</p>
+  </section>
+  </li>
+  <li class="col-sm-3">
+  <section>
+  <dl>
+  <dt><img src="<?php echo $this->html->webroot( "img/data/i02.png");?>" alt="画像" /></dt>
+  <dd>
+  <p>嵯峨 博士</p>
+  <p>Saga Hiroshi</p>
+  <p>内戦 111</p>
+  </dd>
+  </dl>
+  <p>モバイル事業部</p>
+  <p>第3グループ</p>
+  <p>モバイル事業部</p>
+  <p>第3グループ</p>
+  <p>モバイル事業部</p>
+  <p>第3グループ</p>
+  <p>モバイル事業部</p>
+  <p>第3グループ</p>
+  </section>
+  </li>
+  <li class="col-sm-3">
+  <section>
+  <dl>
+  <dt><img src="<?php echo $this->html->webroot( "img/data/i02.png");?>" alt="画像" /></dt>
+  <dd>
+  <p>嵯峨 博士</p>
+  <p>Saga Hiroshi</p>
+  <p>内戦 111</p>
+  </dd>
+  </dl>
+  <p>モバイル事業部</p>
+  <p>第3グループ</p>
+  <p>モバイル事業部</p>
+  <p>第3グループ</p>
+  <p>モバイル事業部</p>
+  <p>第3グループ</p>
+  <p>モバイル事業部</p>
+  <p>第3グループ</p>
+  </section>
+  </li>
+  </ul>
+  </div>
+  
+  </article> 
+
+  <?php echo $this->element('footer'); ?>
+

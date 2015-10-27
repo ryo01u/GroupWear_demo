@@ -1,0 +1,88 @@
+.col-sm-1,.col-sm-2,.col-sm-3,.col-sm-4,.col-sm-5,.col-sm-6,.col-sm-7,.col-sm-8,.col-sm-9,.col-sm-10{
+padding:0;}
+.container {
+margin:0 5px;
+padding: 0;}
+.bass_header_01 .bass_logo_01{
+    margin: 10px 10px 15px;
+}
+
+.bass_header_01 .row>div{
+   margin: 5px 0;}
+.bass_header_01 .row .info,
+.bass_header_01 .row .name{
+}
+/*.bass_header_01 .heder_list ul li.info{
+    margin: 4px 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    border: 1px solid #fff;
+    text-align: left;}*/
+.bass_header_01 .log{
+    margin: 4px 0;
+}
+.bass_header_01 .log:after{
+    content: "";
+    display: table;
+    clear: both;
+}
+.bass_sec_01 .row{
+	margin: 20px 0;
+}
+.bass_sec_01 .row .table{
+	margin: 5px 0;
+	width: 100%;
+}
+.bass_maincontents_01 .bass_seccard_01{
+    padding:0 5px;
+    margin: 10px 0;}
+.bass_maincontents_01 .bass_news_01 .person .photo{
+    width: 60px;
+    height: 60px;
+}
+.bass_maincontents_01 .bass_news_01 .comment:after, 
+.bass_maincontents_01 .bass_news_01 .comment:before {
+    top: 30px;
+}
+
+.bass_maincontents_01 .bass_detail_01 .detail_btn .btn{
+    text-align: center;
+    margin: 0 auto;
+    width: 100%;
+}
+.bass_maincontents_01 .bass_detail_01 .detail_comment .person .photo{
+    /*width: 100%;*/
+    margin: 0;
+}
+.bass_nav_01 .container ul li{
+    display: none;
+}
+.bass_nav_01 .container ul li.home,
+.bass_nav_01 .container ul li.search{
+    display: block;
+}
+.bass_maincontents_01 .bass_detail_01 .detail_comment{
+    width: 100%;
+    display: table;
+}
+.bass_maincontents_01 .bass_detail_01 .detail_comment>div{
+    float: none;
+    clear: both;
+    /*width: auto;*/
+    display: table-cell;
+    vertical-align: top;
+}
+.bass_maincontents_01 .bass_detail_01 .detail_comment>div>p,
+.bass_maincontents_01 .bass_detail_01 .detail_comment>div>div{
+    width: 100%;
+    display: block;
+}
+.bass_maincontents_01 .bass_detail_01 .detail_comment .person{
+
+}
+ .bass_maincontents_01 .bass_detail_01 .detail_comment .comment{
+    /*min-width: 80%;*/
+ }
+.bass_maincontents_01 .bass_detail_01 .detail_comment .comment{
+    padding: 0 0 0 10px;
+}

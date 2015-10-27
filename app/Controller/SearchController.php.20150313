@@ -1,0 +1,294 @@
+<?php
+
+//App::uses('SiteController', 'Controller');
+
+class SearchController extends AppController {
+	public $helpers = array('Html', 'Form');
+
+	public $uses = array('Keyword',  'Department', 'Staff' ,  'Project' , 'Client', 'StaffGroup' ,'ProjectStaff');
+
+	public $layout = "";
+
+	public function index() {
+
+		//$this->link();
+
+	}
+
+	public function keyword() {
+
+		$view_flag = array();
+
+
+		$department_id = null;
+		$group_id = null;
+		$staff_id = null;
+		$keyword = null;
+		$view_flag["staff"] = 0;
+		$view_flag["client"] = 0;
+		$view_flag["project"] = 0;
+		$search_flag = False;
+
+		$type_selected = null;
+		$akasatana_selected = null;		
+		$name_selected = null;
+		$created_selected = null;
+
+		$order_condition = "type";
+
+		$department_id = "";
+
+//$paginator->options(array('url' => array('?' => $query)));
+
+//var_dump($this->params);
+
+		if ( isset($this->params['data']["Search"]["order"])){
+			switch ($this->params['data']["Search"]["order"]) {
+				case 'type':
+					$order_condition = "type";
+					$type_selected = "selected";					
+					break;
+				case 'name':
+					$order_condition = "name";	
+					$name_selected = "selected";									
+					break;
+				case 'akasatana':
+					$order_condition = "akasatana";
+					$akasatana_selected = "selected";										
+					break;
+				case 'created':
+					$order_condition = "created";	
+					$created_selected = "selected";									
+					break;
+			}
+		}
+	
+		$this->set('type_selected',$type_selected);
+		$this->set('name_selected',$name_selected);
+		$this->set('akasatana_selected',$akasatana_selected);
+		$this->set('created_selected',$created_selected);
+
+		$staff_search_checked = "";
+
+		if ($this->request->isPost() || $this->request->isPut() ||  isset($this->params['url']["d"]) || isset($this->params['url']["g"]) ){
+			$search_flag = True;
+			
+		}
+
+
+		if (!$this->params['data'] && ! isset($this->params['url']["s_v"]) ){
+			$staff_search_checked = "checked";
+		}
+
+		if (isset($this->params['data']["Search"]["staff_search"]) ){
+			
+			$view_flag["staff"] = 1;	
+			$staff_search_checked = "checked";
+		}
+		
+		$this->set('staff_search_checked', $staff_search_checked);		
+		$project_search_checked = "";
+
+		if (!$this->params['data'] && ! isset($this->params['url']["p_v"]) ){
+			$project_search_checked = "checked";
+		}
+		if ( isset( $this->params['data']["Search"]["project_search"])){
+			$view_flag["project"] = 1;
+			$project_search_checked = "checked";
+		}
+		if (isset($this->params['url']["p_v"]) && $this->params['url']["p_v"]==1){
+			$view_flag["project"] = 1;
+			$project_search_checked = "checked";
+		}
+		$this->set('project_search_checked', $project_search_checked);		 
+
+		$client_search_checked = "";
+
+		if (!$this->params['data'] && ! isset( $this->params['url']["c_v"]) ){
+			$client_search_checked = "checked";
+		}
+		if (isset($this->params['data']["Search"]["client_search"])){
+			$view_flag["client"] = 1;
+			$client_search_checked = "checked";			
+		}
+		$this->set('client_search_checked', $client_search_checked);
+
+
+		if (isset($this->params['data']["Search"]["keyword"])){
+
+			$keyword = $this->params['data']["Search"]["keyword"];
+			
+		}
+		$this->set('keyword',$keyword);		
+		
+		$department_ids = "";			
+	
+		if (isset($this->params['data']["Search"]["department_ids"])){
+			 $department_ids = $this->params['data']["Search"]["department_ids"];
+			$this->set('set_department_ids',$department_ids);			
+		}
+			
+		if (isset($this->params['url']["d"])){ 
+			$department_id = $this->params['url']["d"];
+			
+		}
+		
+		$this->set('set_department_id',$department_id);
+		
+		if (isset($this->params['url']["g"])){ 
+			$group_id = $this->params['url']["g"];
+		}
+		if (isset($this->params['url']["s"])){ 
+			$staff_id = $this->params['url']["s"];
+		}
+
+		if( $search_flag && ($view_flag["project"] == 1 || $view_flag["staff"] == 1 || $view_flag["client"] == 1 ) ){
+			
+				$cond = $this->Keyword->getKeywordSearchSql($keyword, $view_flag,  $group_id , $department_id ,$staff_id, $department_ids);			
+				//$cond = $this->Page->getSqlList();
+							
+				$this->paginate = array(
+				'conditions'=>$cond,
+				'order'=>$order_condition,
+				'limit'=>10,
+				'recursive'=>0
+				);
+				
+				
+				$search_rec =$this->paginate('Keyword');
+				
+				$search_staff_ids = array();
+				$search_project_ids = array();
+				$search_client_ids = array();
+
+				foreach ($search_rec as $row) {
+		
+						switch ($row["Some"]["type"]) {
+						    case "s":
+					
+								$search_staff_ids[] = $row["Some"]["id"];
+					        	break;
+						    case "p":
+								$search_project_ids[] = $row["Some"]["id"];
+								
+					        	break;
+						    case "c":
+								$search_client_ids[] = $row["Some"]["id"];
+					        	break;				
+						}
+				}
+				
+				$this->set('search_array',$search_rec);
+		
+				//スタッフ情報
+				if($search_staff_ids){
+					$this->_setStaff($search_staff_ids);
+				}
+				//案件情報
+				if($search_project_ids){
+					$this->_setProject($search_project_ids);
+				}
+				//取引先情報
+				if($search_client_ids){
+					$this->_setClient($search_client_ids);
+				}
+				
+		}
+
+			$departmentRec = $this->Department->find('all', array(
+					'conditions' => array('delete_flag'=> 0 )
+				)) ;
+
+			$this->set('department_array',$departmentRec);
+			
+			$this->render('keyword');
+
+	}
+	
+
+
+/*スタッフ情報を生成（マイページのpege_idをキーに
+ * 
+*/
+
+	public function _setStaff($search_staff_ids) {
+		
+		$staff_rec = $this->Staff->find( 'all', array(  'fields' => array( 'id', 'name','sex' , 'extension_number','memo') , 'conditions' => array( 'delete_flag' => 0 , 'id' => $search_staff_ids , ) ) ) ;
+				
+		$staff_array = array();
+				
+		foreach ($staff_rec as $row) {
+			$staff_array[$row["Staff"]["id"]]["id"] = $row["Staff"]["id"];
+			$staff_array[$row["Staff"]["id"]]["name"] = $row["Staff"]["name"];
+			$staff_array[$row["Staff"]["id"]]["extension_number"] = $row["Staff"]["extension_number"];
+			$staff_array[$row["Staff"]["id"]]["memo"] = $row["Staff"]["memo"];
+			$StaffGroup_rec = $this->StaffGroup->getStaffGroupInfo($row["Staff"]["id"]) ;
+			
+			foreach ($StaffGroup_rec as $rec) {
+				$staff_array[$row["Staff"]["id"]]["groups"][$rec["sg"]["group_id"]]["group_id"] = $rec["sg"]["group_id"];
+				$staff_array[$row["Staff"]["id"]]["groups"][$rec["sg"]["group_id"]]["group_name"] = $rec["g"]["group_name"];
+				$staff_array[$row["Staff"]["id"]]["departments"][$rec["g"]["department_id"]]["department_id"] = $rec["g"]["department_id"];
+				$staff_array[$row["Staff"]["id"]]["departments"][$rec["g"]["department_id"]]["department_name"] = $rec["d"]["department_name"];				
+			}
+		}
+		
+		$this->set('staff_array',$staff_array);
+	}
+
+/*案件情報を生成（マイページのpege_idをキーに
+ * 
+*/
+
+	public function _setProject($search_project_ids) {
+			
+		$project_rec = $this->Project->find( 'all', array(  'fields' => array( 'id', 'name') , 'conditions' => array( 'delete_flag' => 0 , 'id' => $search_project_ids , ) ) ) ;
+		$project_array = array();
+				
+		foreach ($project_rec as $row) {
+			$project_staff_ids = array();
+			$project_array[$row["Project"]["id"]]["id"] = $row["Project"]["id"];
+			$project_array[$row["Project"]["id"]]["name"] = $row["Project"]["name"];
+			$ProjectStaff_rec = $this->ProjectStaff->getProjectStaffInfo($row["Project"]["id"]) ;
+			if($ProjectStaff_rec){
+				foreach ($ProjectStaff_rec as $rec) {
+					$project_array[$row["Project"]["id"]]["staffs"][$rec["st"]["staff_id"]]["id"] = $rec["st"]["staff_id"];
+					$project_array[$row["Project"]["id"]]["staffs"][$rec["st"]["staff_id"]]["name"] = $rec["s"]["staff_name"];
+					$project_staff_ids[] = $rec["st"]["staff_id"]; 			;
+				}
+			}
+			$StaffGroup_rec = $this->StaffGroup->getStaffGroupInfo($project_staff_ids);
+			if($StaffGroup_rec){
+				foreach ($StaffGroup_rec as $rec) {
+					$project_array[$row["Project"]["id"]]["groups"][$rec["sg"]["group_id"]]["id"] =  $rec["sg"]["group_id"];
+					$project_array[$row["Project"]["id"]]["groups"][$rec["sg"]["group_id"]]["name"] = $rec["g"]["group_name"];
+					$project_array[$row["Project"]["id"]]["departments"][$rec["g"]["department_id"]]["id"] = $rec["g"]["department_id"];
+					$project_array[$row["Project"]["id"]]["departments"][$rec["g"]["department_id"]]["name"] = $rec["d"]["department_name"];
+				}
+			}
+		}
+		$this->set('project_array',$project_array);
+	}
+
+	
+/*取引先情報を生成（マイページのpege_idをキーに
+ * 
+*/
+
+
+	public function _setClient($search_client_ids) {
+		$client_rec = $this->Client->find( 'all', array(  'fields' => array( 'id', 'name', 'phone') , 'conditions' => array( 'delete_flag' => 0 , 'id' => $search_client_ids , ) ) ) ;
+		$client_array = array();		
+		foreach ($client_rec as $row) {
+			$client_array[$row["Client"]["id"]]["id"] = $row["Client"]["id"];
+			$client_array[$row["Client"]["id"]]["name"] = $row["Client"]["name"];
+			$client_array[$row["Client"]["id"]]["phone"] = $row["Client"]["phone"];
+		}
+		
+		$this->set('client_array',$client_array);
+	}
+
+
+
+
+
+}

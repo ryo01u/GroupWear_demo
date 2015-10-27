@@ -1,0 +1,225 @@
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
+
+<script type="text/javascript">
+<!--
+
+function disp(){
+
+	// 「OK」時の処理開始 ＋ 確認ダイアログの表示
+	if(window.confirm('本当にいいんですね？')){
+		location.href = "/registstaff/action"; // example_confirm.html へジャンプ
+	}
+	// 「OK」時の処理終了
+	// 「キャンセル」時の処理開始
+	else{
+		//window.alert('キャンセルされました'); // 警告ダイアログを表示
+	}
+	// 「キャンセル」時の処理終了
+
+}
+
+// -->
+</script>
+
+<!--
+<?php
+// 営業所切り替えのJS
+$this->Js->get('#StaffDepartmentId')->event(
+    'change',
+    $this->Js->request(
+        array('controller'=>'Registstaff','action'=>'ajax_group'),//url
+        array(
+            'update' => '#StaffGroupId',
+            'dataExpression' => true,
+            'data' => '$("#StaffDepartmentId").serialize()',
+		'complete' => '$("#StaffGroupId").change();'     //営業所を選んだら担当者も変える
+       )
+    )
+);
+  
+echo $this->Js->writeBuffer();
+?>
+  // -->
+
+<h2>社員登録</h2>
+<h3>追加／編集</h3>
+
+<!-- 追加編集フォーム -->
+
+    <?php echo $this->Form->create('Staff', array('action'=>'post', 'url' =>  '/registstaff/action' )); ?>
+
+
+	<table class="sheet">
+
+
+<?php echo $this->Form->input('Staff.id',  array('type' => 'hidden',  'value'=>$id)); ?>
+
+		<tr>
+			<th width="170">
+			<td> 
+			   <?php echo $this->Form->input('Staff.name',array('label'=>'社員名','required' => false  )); ?>
+			 	<?php // echo($errors["name"]["0"]) ; ?>
+			 
+			</td> 
+		</tr>
+
+
+
+		<tr>
+			<th width="170">
+			<td>
+		<?php	
+			echo $this->Form->input( 'Staff.sex', array(
+			'label' => '性別', 
+		    'type' => 'select', 
+		    'options' => $sex
+		    ));
+			?>
+			</td> 
+		</tr>
+
+
+		<tr>
+			<th width="170">
+			<td> 
+			   <?php echo $this->Form->input('Staff.staff_id',array(  'type' => 'text', 'label'=>'社員番号','required' => false)); ?>
+			</td> 
+		</tr>
+
+
+		<tr>
+			<th width="170">
+			<td> 
+			   <?php echo $this->Form->input('Staff.account',array('label'=>'アカウント','required' => false)); ?>
+			</td> 
+		</tr>
+
+
+	<!-- < ?php  if (! $id): ?>-->
+
+		<tr>
+			<th width="170">
+			<td> 
+			   <?php echo $this->Form->input('Staff.password',array('label'=>'パスワード','required' => false)); ?>
+			</td> 
+		</tr>
+
+	<!--< ?php // endif; ?>-->
+
+
+
+
+
+
+		<!--
+		<tr>
+			<th width="170">
+			<td>
+		<?php	
+			echo $this->Form->input( 'Staff.department_id', array(
+			'label' => '部署', 
+		    'type' => 'select', 
+		    'options' => $department
+		    ));
+			?>
+			 
+			   
+			</td> 
+		</tr>
+
+		
+		<tr>
+			<th width="170">
+			<td>
+		<?php	
+			echo $this->Form->input( 'Staff.group_id', array(
+				'label' => 'グループ', 
+				'type' => 'select',
+				'multiple'=> 'checkbox', 
+				'options' => $group
+			));
+			?>
+
+			</td> 
+		</tr>
+		-->
+
+		<!--グループ-->
+		<tr>
+			<th width="170">
+			<td>
+			所属グループ選択<Br>
+			<?php foreach ($department as $row_department): ?>
+				<?php print $row_department["Department"]["name"] ; ?></br>
+		
+					<?php foreach ($group as $row_group): ?>
+						<?php if ( $row_department["Department"]["id"] == $row_group["Group"]["department_id"] ): ?>
+							
+							<?php $checked = null ; ?>					
+							<?php foreach ($staffGroup as $row_staff_group): ?>
+								<?php if ( $row_staff_group["StaffGroup"]["group_id"] == $row_group["Group"]["id"] ): ?>
+									<?php
+									$checked = "checked";
+									break ;
+									; ?>
+													
+								<?php endif; ?>
+							<?php endforeach; ?>
+							
+							<input type="checkbox" name="data[StaffGroup][group_id][]" value="<?php print $row_group["Group"]["id"]; ?>" <?php print $checked; ?> >
+							<?php print $row_group["Group"]["name"]; ?><br>
+												
+												
+						<?php endif; ?>
+						
+				<?php endforeach; ?>
+				
+			<?php endforeach; ?>
+			</td> 
+		</tr>
+		
+
+
+
+		<tr>
+			<th width="170">
+			<td> 
+		<?php	
+			echo $this->Form->input( 'Staff.position_id', array(
+			'label' => '役職', 
+		    'type' => 'select', 
+		    'options' => $position
+		    ));
+			?>
+			  
+			</td> 
+		</tr>
+
+		<tr>
+			<th width="170">
+			<td>
+		<?php	
+			echo $this->Form->input( 'Staff.job', array(
+			'label' => '職種', 
+		    'type' => 'select', 
+		    'options' => $job
+		    ));
+			?>
+			</td> 
+		</tr>
+
+
+
+
+	</table>
+
+
+	<input type="submit" value="送信">
+</form>
+
+<!-- 追加編集フォーム -->
+
+
+

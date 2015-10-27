@@ -1,0 +1,24 @@
+<?php
+
+//App::uses('SiteController', 'Controller');
+
+class SearchController extends AppController {
+	public $helpers = array('Html', 'Form');
+
+
+	public $layout = "";
+
+	public function index() {
+
+		//$this->link();
+
+	}
+
+
+	public function keyword() {
+
+		//$this->link();
+
+	}
+
+}

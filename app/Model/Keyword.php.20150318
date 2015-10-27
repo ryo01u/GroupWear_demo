@@ -1,0 +1,159 @@
+<?php
+
+class Keyword extends AppModel {
+
+	//var $useTable = 'group';
+	var $primaryKey = "id";
+
+	var $useTable = false;
+
+	public function paginate($conditions, $fields, $order, $limit, $page , $recursive = null) {
+	
+	$offset = $page * $limit - $limit;
+	
+	if($conditions){
+		$sql = $conditions;
+		$sql .= " order by " . $order;
+		$sql .= " limit " . $limit;
+		$sql .= " offset " . $offset;
+		
+		//$this->Common->v($this->query($sql));
+		
+		return $this->query($sql);		
+	}
+
+	}
+	
+	public function paginateCount($conditions = null, $recursive = 0) {
+	
+	$sql = $conditions;
+	
+	$this->recursive = $recursive;
+	
+	$results = $this->query($sql);
+	
+	return count($results) ; 
+	}
+
+	public function getKeywordSearchSql($keyword ,  $view_flag , $department_ids , $group_ids=null ){
+
+		$this->loadComponent('Common');
+
+
+		$sql = " select * from   ( (select null as id  , null as name , null as type ,null as modified , null as akasatana)";
+		$keyword_condition = "";
+		$aaa　="";
+		$department_condition　="";
+		$department_in_condition = "";
+
+
+		if($department_ids){
+			$department_in_text = "";
+			if (is_array($department_ids)) {
+				foreach ($department_ids as $key => $value) {
+				 	
+					 if ($key == 0){
+					 	$department_in_text .= $value; 
+					 }else {
+					 	$department_in_text .= "," . $value; 
+					 }
+				}
+			} else {
+				$department_in_text = $department_ids;
+			}
+			$department_in_condition =" and d.id in ($department_in_text)";
+		}
+																		
+		if($view_flag["staff"]){
+
+			if($keyword){
+				$keyword_condition = "and s.name LIKE '%" . $keyword . "%'";
+			} else {
+				$keyword_condition = "";
+			}
+
+	   		$sql .= " union 
+					(SELECT
+						s.id as id , s.name as name , 's' as type , s.modified  ,s.akasatana
+					FROM
+					    staff s ,r_staff_group sg , `group` g , department d
+					where
+						s.delete_flag = 0
+						and s.id = sg.staff_id
+						and sg.group_id = g.id
+						and g.department_id = d.id						
+					$keyword_condition
+					$department_in_condition 						
+					group by name , type) 	
+					";
+		}					
+					
+		if($view_flag["project"]){
+
+			if($keyword){
+				$keyword_condition = "and (p.name LIKE '%" . $keyword . "%'";
+				$keyword_condition .= "or s.name LIKE '%" . $keyword . "%' )";
+			}else {
+				$keyword_condition = "";
+			}
+	
+
+	   		$sql .= " union 
+					(SELECT
+						p.id as id ,p.name as name , 'p' as type, s.modified as modified  ,s.akasatana
+					FROM
+					     project as p ,  staff as s , r_project_staff ps 
+					     ,r_staff_group sg , `group` g , department d
+					where
+						p.delete_flag = 0
+						and ps.project_id = p.id
+						and ps.staff_id = s.id
+						and sg.group_id = g.id
+						and g.department_id = d.id														
+						$keyword_condition
+
+						$department_in_condition 						
+					group by name , type) 	
+   		   		
+	   				";
+		}								
+
+		if($view_flag["client"]){
+
+
+			if($keyword){
+				$keyword_condition = "and c.name LIKE '%" . $keyword . "%'";
+			}else {
+				$group_condition = "";
+			}
+
+			$sql .= "union 
+					(SELECT
+						c.id as id ,c.name as name , 'c' as type, s.modified  ,s.akasatana
+					FROM
+					    client c ,  staff as s , r_client_staff cs
+					    ,r_staff_group sg , `group` g , department d
+					where
+						c.delete_flag = 0
+						and cs.staff_id = s.id
+						and sg.group_id = g.id
+						and g.department_id = d.id									
+						$keyword_condition
+ 
+						$department_in_condition 												
+					group by name , type) 		
+					";
+		}	
+
+		$sql .= " ) Some where id is not null ";
+		
+		//$this->Common->v($sql );
+		$data = $this->query($sql);		
+		//return $data; 
+		return $sql; 	
+	}
+
+
+
+
+}

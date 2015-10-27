@@ -1,0 +1,50 @@
+<?php
+
+class MypageController extends AppController {
+	public $helpers = array('Html', 'Form');
+
+	//モデル呼び出し
+	public $uses = array('Staff');
+
+
+	public $layout = ""; // レイアウトファイルは使用しない
+
+	//index
+	public function index() {
+
+		$staff = $this->Staff->find('all', array(
+			'conditions' => array( 'delete_flag' => 0)
+		)) ;
+
+		$this->set('staff', $staff);
+
+		$this->render('index');
+
+	}
+
+
+	public function finish() {
+		
+		$this->render('finish');
+		
+	}
+	
+	
+
+
+	public function detail($id=null) {
+
+		$staff = $this->Staff->getStaffInfo($id);
+		//var_dump($staff);
+
+		$this->set('info', $staff);
+
+		$this->render('detail');
+
+
+	}
+
+
+
+
+}

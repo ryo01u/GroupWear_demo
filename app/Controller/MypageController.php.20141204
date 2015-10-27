@@ -1,0 +1,130 @@
+<?php
+
+class MypageController extends AppController {
+	public $helpers = array('Html', 'Form');
+
+	//モデル呼び出し
+	public $uses = array('Staff','Bookmark','Group','Department','Position');
+
+
+	public $layout = ""; // レイアウトファイルは使用しない
+
+	//index
+	public function index() {
+
+		$staff = $this->Staff->find('all', array(
+			'conditions' => array( 'delete_flag' => 0)
+		)) ;
+
+		$this->set('staff', $staff);
+
+		$this->render('index');
+
+	}
+
+
+	public function finish() {
+		
+		$this->render('finish');
+		
+	}
+	
+	
+
+
+	public function detail($id=null) {
+
+		$staff = $this->Staff->getStaffInfo($id);
+		//var_dump($staff);
+
+		$this->set('info', $staff);
+
+		$this->render('detail');
+
+
+	}
+	
+	
+	public function action($id=0) {
+
+
+		$this->set(compact("id"));
+
+		$this->set( 'sex', Configure::read("sex") );
+		$this->set( 'job', Configure::read("job") );
+		$this->set( 'department', $this->Department->find( 'list', array( 'fields' => array( 'department_id', 'name')) ) );
+	    $this->set( 'group', $this->Group->find( 'list', array( 'fields' => array( 'group_id', 'name')) ) );	
+		$this->set( 'position', $this->Position->find( 'list', array( 'fields' => array( 'position_id', 'name')) ) );
+
+
+
+
+		//フォーム入力があった場合には保存処理。そうでない場合は初期値の準備
+		if($this->request->isPost() || $this->request->isPut()) {
+			//$this->Common->v("bbb");
+
+			if ($id){
+					$this->request->data["Staff"]["id"] =  $id;
+			}
+			
+			
+        	$this->Staff->set($this->request->data);
+		
+       				 //$this->Common->v( $this->Staff->validates());
+        
+			 if (! $this->Staff->validates()){
+			      		 // $this->Common->v( $this->Staff->validationErrors);	
+				$this->set( 'errors', $this->Staff->validationErrors );			
+			 }
+
+			//var_dump($this->request->data);
+
+			if ($this->Staff->save($this->request->data)){
+				$this->redirect("finish");	
+			}			
+
+			
+		} else {
+
+				$staffRec = $this->Staff->find('first', array(
+					'conditions' => array('id'=> $id )
+				)) ;
+		
+				$this->data = $staffRec;
+
+				$this->set(compact("id"));
+
+				$this->render('index');
+
+		}	
+
+
+  
+
+
+
+	
+
+
+
+			//$this->Staff->create();
+
+			//print date("Y/m/d G:i:s");
+		
+
+
+
+
+		
+
+
+		
+
+	}
+
+
+
+
+
+
+}

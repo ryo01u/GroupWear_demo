@@ -1,0 +1,32 @@
+<?php
+
+//App::uses('SiteController', 'Controller');
+
+class NewsController extends AppController {
+	public $helpers = array('Html', 'Form');
+
+	public $layout = "";
+
+
+	public $uses = array('News');
+	
+	public function detail($id=null) {
+
+		$news = $this->News->getNewsInfo($id);
+		//var_dump($department);
+
+		$this->set('info', $news);
+
+		$this->render('detail');
+
+
+	}
+	
+	public function index() {
+
+		//$this->link();
+
+	}
+
+
+}

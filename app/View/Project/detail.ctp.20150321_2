@@ -1,0 +1,118 @@
+<?php echo $this->element('header'); ?>
+<?php echo $this->element('head'); ?>
+<?php echo $this->element('navi'); ?>
+
+       <div class="bass_maincontents_01 project_detail">
+           <div class="container bass_detail_01">
+               <div class="row">
+                   <p class="bass_title_01">案件情報：まちコレ</p>
+               </div>
+               
+               
+               <div class="row detail_comment">
+                   <div class="col-sm-2 col-xs-2 person">
+                       <p class="photo">
+                       	<?php echo $this->Util->getImageTag("project" , $id)  ?>
+                       	</p>
+                       </div>
+                       
+                   <!--<div class="col-sm-8 col-xs-10 comment">
+                           <div class="inner on">
+                               <em>
+                                   <p>2015-02-19 18:34:49</p>
+                                   <p><strong>【号外】</strong></p><br>
+                                   <p>ISISじゃないよ</p>
+                                   <p>ISISじゃないよ</p>
+                               </em>
+                        </div>
+                  </div>-->
+                   
+               </div>
+               
+               <div class="row detail_contents_wrap two_col">
+                   <div class="col-sm-6 detail_contents basic_info">
+                      <div class="inner">
+                       <p class="detail_contents_h01">基本情報</p>
+                       <div class="contents_list">
+                       	
+    					
+							<p>案件名：<?php print($project["Project"]["name"]) ; ?></p>
+							<p>	案件概要：<?php print($project["Project"]["memo"]) ; ?></p>
+							<p>担当者：
+								<?php foreach ($projectStaff as $row): ?>
+									<?php echo $row["name"]  ; ?><br>
+								<?php endforeach; ?>								
+								</p>
+							<p>グループ：<br>
+								<?php foreach ($projectGroup as $row): ?>
+									<?php echo($row["department_name"]) ; ?><?php echo($row["group_name"]) ; ?><br>
+								<?php endforeach; ?>								
+								</p>
+								
+							<p>得意先名：（取引先へのリンク）</p>
+							<p>仕入先名：（複数表示あり・取引先へのリンク）</p>
+							<p>期間：<?php if(isset($project["start_date"])) { echo $project["start_date"] ;}?>
+								～<?php if(isset($project["end_date"])) { echo $project["end_date"] ;}?></p>
+                       </div>
+                       </div>
+                   </div>
+
+                   <div class="col-sm-6 detail_contents item">
+                       <div class="inner">
+                           <p class="detail_contents_h01">メモ</p>
+                       <div class="link_list01">
+                       	<?php if ($projectMemo): ?>
+							<?php foreach ($projectMemo as $row): ?>
+								<p> 
+									<a hre=""><?php print($row["Projectmemo"]["title"]) ; ?>
+									
+									<?php if (isset($row["Projectmemo"]["set_staff_id"])): ?>			
+											<?php echo $staff[$row["Projectmemo"]["set_staff_id"]] ;?>
+									<?php endif; ?>	          			                       	
+									<?php print($row["Projectmemo"]["modified"]) ; ?>
+								</p>
+							<?php endforeach; ?>	                       	
+						<?php endif; ?>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+               <div class="row detail_contents_wrap two_col">
+                   <div class="col-sm-6 detail_contents contract">
+                      <div class="inner">
+                       <p class="detail_contents_h01">契約情報</p>
+                       <div class="contents_list">
+                       	<?php if ($projectcontract): ?>
+							<?php foreach ($projectcontract as $row): ?>
+								<p> 
+										<?php print($row["Projectcontract"]["title"]) ; ?>
+										
+										<?php if (isset($row["Projectcontract"]["status"])): ?>			
+												<?php echo $contract_status[$row["Projectcontract"]["status"]] ;?>
+										<?php endif; ?>
+										<?php print($row["Projectcontract"]["modified"]) ; ?>
+																				
+								</p>
+							<?php endforeach; ?>
+						<?php endif; ?>                       	
+
+                       </div>
+                       </div>
+                   </div>
+
+                   <div class="col-sm-6 detail_contents link">
+                       <div class="inner">
+                           <p class="detail_contents_h01">マーケット情報</p>
+                       <div class="link_list02">
+							<p>					
+							<?php print($project["Project"]["markets"]) ; ?>
+	                        </p>
+                           </div>
+                       </div>
+                   </div>
+
+               </div>
+           </div><!--class="container"-->
+       </div>
+
+<?php echo $this->element('footer'); ?>

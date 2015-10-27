@@ -1,0 +1,103 @@
+<?php
+
+App::uses('AppModel', 'Model');
+App::uses('AuthComponent', 'Controller/Component'); // �R���|�[�l���g��ǉ�
+/**
+ * User Model
+ *
+ */
+
+class StaffGroup extends AppModel {
+
+	var $useTable = 'r_staff_group';
+	var $primaryKey = "id";
+
+
+	public function clearGroup($staff_id ){
+
+		$this->loadComponent('Common');		
+		$condition = array('staff_id' => $staff_id);
+	
+		//$this->Common->v($condition);
+		$this->deleteAll($condition);
+		
+	}
+
+
+	//�O���[�v�폜
+	public function getStaffGroupInfo( $staff_id_list ){
+
+		$this->loadComponent('Common');
+	 	$in_text = null;
+		foreach ($staff_id_list as $key => $value) {
+		 	
+			 if ($key == 0){
+			 	$in_text .= $value; 
+			 }else {
+			 	$in_text .= "," . $value; 
+			 }
+		}
+   		$sql = "
+				SELECT
+					sg.staff_id as staff_id , sg.group_id as group_id,   g.name as group_name, d.name as department_name  
+				FROM
+				    `group` g , department as d , r_staff_group sg
+				where
+					sg.group_id = g.id
+					and d.id = g.department_id
+					and sg.staff_id in ($in_text)
+   		   		";
+
+		//$this->Common->v($sql );
+        $data = $this->query($sql);		
+			
+		return $data; 
+			
+	}	
+
+
+	//�O���[�v�폜
+	public function setGroup($request_data , $insertStaffId ){
+
+		$this->loadComponent('Common');
+		
+		//�ǉ�
+		if(! $request_data["Staff"]["id"]){
+
+			if ($insertStaffId){
+			//$this->Common->v($request_data["StaffGroup"]["group_id"]);
+				foreach($request_data["StaffGroup"]["group_id"] as $row ){
+					 
+					$data['StaffGroup']['id'] = null;			
+  					$data['StaffGroup']['staff_id'] = $insertStaffId;
+					$data['StaffGroup']['group_id'] = $row ;
+					
+    				$this->save($data);
+				}
+			
+			}
+
+		} else {
+			if($request_data["StaffGroup"]["group_id"]){
+				//一旦けす
+				$this->clearGroup($request_data["Staff"]["id"]);
+
+				foreach($request_data["StaffGroup"]["group_id"] as $row ){
+				 
+					$data['StaffGroup']['id'] = null;			
+  					$data['StaffGroup']['staff_id'] = $insertStaffId;
+					$data['StaffGroup']['group_id'] = $row ;
+    				$this->save($data);
+				}
+					
+			}
+
+
+		}
+
+	}
+
+
+
+
+}

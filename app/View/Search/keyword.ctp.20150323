@@ -1,0 +1,327 @@
+<?php echo $this->element('header'); ?>
+<?php echo $this->element('head'); ?>
+<?php echo $this->element('navi'); ?>
+
+
+
+
+
+<div class="bass_maincontents_01">
+    <div class="container keyword">
+        <div class="row">
+            <p class="bass_title_03">キーワード検索</p>
+        </div>
+
+      <form action="<?php echo URI_PATH; ?>/search/keyword" id="SearchGETForm" method="get" accept-charset="utf-8">
+     	
+            <div class="search_wrap">
+                <div class="row text_input_wrap">
+                    <div class="col-sm-10 col-xs-10 text_input">
+
+                        <input type="text" name="keyword" value="<?php  if(isset($keyword)){ echo trim($keyword) ; }   ?>  " >
+                        
+                    </div>
+
+                    <div class="col-sm-2 col-xs-2 serch_btn">
+                        <input type="submit" value="検索">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        ▼さらに細かく
+                    </div>
+                </div>
+                <div class="serch_area">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <p>検索対象</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                 	                    	
+                        <div class="col-sm-3 col-xs-6">
+                            <label><input type="checkbox" name="s_v" <?php print $staff_search_checked ?>  >スタッフ</label>
+                        </div>
+                        <div class="col-sm-3 col-xs-6">
+                            <label><input type="checkbox" name="c_v" <?php print $client_search_checked ?>  >取引先</label>
+                        </div>
+                        <div class="col-sm-3 col-xs-6">
+                            <label><input type="checkbox" name="p_v" <?php print $project_search_checked ?>  >案件</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="serch_area">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            検索対象
+                        </div>
+                    </div>
+                    <div class="row">
+                    <?php foreach ($department_array as $row): ?>
+             			<?php $checked = ""; ?>
+		 					 		
+				 		<?php if ($param_department_array): ?>
+				 					
+					 		<?php foreach ($param_department_array as $set_row): ?>
+					 			
+								<?php if ($set_row ==  $row["Department"]["id"]): ?>
+									<?php $checked = "checked"; ?>
+								<?php endif; ?>
+							<?php endforeach; ?>
+							
+						<?php else: ?>
+							<?php $checked = "checked"; ?>
+							
+						<?php endif; ?>
+
+
+             			       		
+                        <div class="col-sm-3 col-xs-6">
+                            <label>
+                            	<input type="checkbox" name="d[]" value="<?php print $row["Department"]["id"]; ?>"  <?php print $checked; ?> >
+                            	<?php print $row["Department"]["name"]; ?>		
+                            </label>
+                        </div>
+                    <?php endforeach; ?>    
+                    </div>
+                    
+                </div>
+
+
+                <div class="row table_opt">
+                    <div class="col-sm-2 no_all">
+
+		<?php if ($this->Paginator->params()): ?>
+			<?php  echo $this->Paginator->counter(array('format' => '全%count%件' ));?>
+			<?php echo $this->Paginator->counter(array('format' => '{:page}/{:pages}'));?>
+		 <?php endif; ?>                          
+                        
+                    </div>
+                    <div class="col-sm-3 col-xs-6">
+						<select name="order">
+							<option value="type" <?php print $type_selected ;?> >種別</option>
+							<option value="name" <?php print $name_selected  ;?>>名前(昇順)</option>
+							<option value="akasatana" <?php print $akasatana_selected;?> >あいうえお順</option>
+							<option value="created" <?php print $created_selected;?> >作成順</option>
+						</select>
+                    </div>
+
+                </div>
+
+             
+         </form>
+                
+			<?php if ( isset( $search_array)): ?>
+                
+                <table cellspacing="0" cellpadding="0" border="0" class="tbl-search">
+                    <tr>
+                        <th></th>
+                        <th>名前</th>
+                        <th>種別</th>
+                        <th>部署</th>
+                        <th>グループ</th>
+                        <th>担当</th>
+                        <th></th>
+                    </tr>
+                    
+					<?php foreach ($search_array as $row): ?>
+						<?php if ($row["Some"]["type"] == "p"): ?>
+		                    <tr>
+		                        <td><?php echo $this->Util->getImageTag("staff" , $row["Some"]["id"]) ?></td>
+		                        <td><?php print $project_array[$row["Some"]["id"]]["name"] ;?></td>
+		                        <td>プロジェクト</td>
+		                        <td>
+		                        	
+		                        	<?php if(isset($project_array[$row["Some"]["id"]]["departments"])): ?>
+				                        <?php foreach ($project_array[$row["Some"]["id"]]["departments"] as $project_department): ?>
+				                        	<a><?php print $project_department["name"]  ;?></a><br>
+				                        <?php endforeach; ?>
+			                        <?php endif; ?>
+		                        </td>
+		                        
+	                        	<td>
+	                        	<?php if(isset($project_array[$row["Some"]["id"]]["groups"])): ?>	
+			                        <?php foreach ($project_array[$row["Some"]["id"]]["groups"] as $project_group): ?>	
+			                        	<a><?php print $project_group["name"]  ;?></a><br>
+			                        <?php endforeach; ?>
+			                    <?php endif; ?> 
+	                        	</td>
+	                        	
+		                        <td>
+	                        	<?php if(isset($project_array[$row["Some"]["id"]]["staffs"])): ?>
+			                        <?php foreach ($project_array[$row["Some"]["id"]]["staffs"] as $project_staff): ?>	
+			                        	<a><?php print $project_staff["name"] ;?></a><br>
+			                        <?php endforeach; ?>
+			                    <?php endif; ?>		                        	
+		                        	</td>
+		                        <td>
+		                            <div class="btn_cell">
+		                            <span class="bass_btn">
+		                            	<a href="<?php print URI_PATH ;?>/project/detail/<?php print $row["Some"]["id"] ;?>">詳細 </a>
+		                            </span>
+		                            </div>
+		                            <div class="btn_cell">
+			                            <span class="bass_btn">
+			                            	<a href="<?php print URI_PATH ;?>/mypage/add/4/<?php print $row["Some"]["id"] ;?>">ホームへ追加</a>
+			                            </span>
+		                            </div>
+		                        </td>
+		                    </tr>
+		                <?php endif; ?>
+
+						<?php if ($row["Some"]["type"] == "s"): ?>
+		                    <tr>
+		                        <td>
+		                        <?php if(isset($row["Some"]["id"])): ?>	
+		                        	<?php echo $this->Util->getImageTag("staff" , $row["Some"]["id"])  ?>
+		                        <?php endif; ?>
+		                        </td>
+		                        <td>
+		                        <?php if(isset($row["Some"]["id"])): ?>	
+		                        	<?php print $staff_array[$row["Some"]["id"]]["name"] ;?>
+		                        <?php endif; ?>	
+		                        </td>
+		                        <td>スタッフ</td>
+		                        <td>
+		                        <?php if(isset($row["Some"]["id"])): ?>	
+			                        <?php if(isset($staff_array[$row["Some"]["id"]]["departments"])): ?>	
+				                        <?php foreach ($staff_array[$row["Some"]["id"]]["departments"] as $staff_department): ?>	
+				                        	<a><?php print $staff_department["department_name"]  ;?></a><br>
+				                        <?php endforeach; ?>
+				                    <?php endif; ?>
+				                <?php endif; ?>    
+		                        </td>
+		                        <td>
+			                    <?php if(isset($row["Some"]["id"])): ?>
+			                        <?php if(isset($staff_array[$row["Some"]["id"]]["groups"])): ?>
+			                        			                        	
+				                        <?php foreach ($staff_array[$row["Some"]["id"]]["groups"] as $staff_group): ?>
+				                        
+				                        	<a><?php print $staff_group["group_name"]  ;?></a><br>
+				                        <?php endforeach; ?>
+				                    <?php endif; ?>			                        
+		                        <?php endif; ?>    
+		                        </td>
+		                        <td>-</td>
+		                        <td>
+		                            <div class="btn_cell">
+		                            <span class="bass_btn">
+		                            	<?php if(isset($row["Some"]["id"])): ?>
+		                               		<a href="<?php print URI_PATH ;?>/staff/detail/<?php print $row["Some"]["id"] ;?>">詳細 </a>
+		                                <?php endif; ?>
+		                            </span>
+		                            </div>
+		                            <div class="btn_cell">
+			                            <span class="bass_btn">
+			                            	<?php if(isset($row["Some"]["id"])): ?>
+			                            		<a href="<?php print URI_PATH ;?>/mypage/add/3/<?php print $row["Some"]["id"] ;?>">ホームへ追加</a>
+			                            	<?php endif; ?>
+			                            </span>
+		                            </div>
+
+		                        </td>
+		                    </tr>
+		                <?php endif; ?>
+
+						<?php if ($row["Some"]["type"] == "c"): ?>
+		                    <tr>
+		                        <td><?php echo $this->Util->getImageTag("staff" , $row["Some"]["id"]) ?></td>
+		                        <td><?php print $client_array[$row["Some"]["id"]]["name"] ;?></td>
+		                        <td>取引先</td>
+		                        <td>
+		                        	
+			                        <?php if(isset($client_array[$row["Some"]["id"]]["departments"])): ?>
+		                        	<!--取引先の部署-->			                        	
+				                        <?php foreach ($client_array[$row["Some"]["id"]]["departments"] as $client_department): ?>
+				                        	
+				                        	<a><?php print $client_department["name"]  ;?></a><br>
+				                        <?php endforeach; ?>
+				                    <?php endif; ?>
+
+		                        </td>
+		                        <td>
+		                        	<!--取引先のグループ-->
+			                        <?php if(isset($client_array[$row["Some"]["id"]]["groups"])): ?>		                        	
+				                        <?php foreach ($client_array[$row["Some"]["id"]]["groups"] as $client_group): ?>	
+				                        	<a><?php print $client_group["name"]  ;?></a><br>
+				                        <?php endforeach; ?>
+				                    <?php endif; ?>			                        	
+		                        </td>
+		                        <td>
+		                        	<!--取引先のスタッフ -->
+			                        <?php if(isset($client_array[$row["Some"]["id"]]["staffs"])): ?>		                        	
+				                        <?php foreach ($client_array[$row["Some"]["id"]]["staffs"] as $client_staff): ?>	
+				                        	<a><?php print $client_staff["name"]  ;?></a><br>
+				                        <?php endforeach; ?>
+				                    <?php endif; ?>				                        	
+		                        			                        	
+		                        </td>
+		                        <td>
+		                            <div class="btn_cell">
+		                            <span class="bass_btn">
+		                                <a href="<?php print URI_PATH ;?>/client/detail/<?php print $row["Some"]["id"] ;?>">詳細 </a>
+		                            </span>
+		                            </div>
+		                            <div class="btn_cell">
+			                            <span class="bass_btn">
+			                            	<a href="<?php print URI_PATH ;?>/mypage/add/5/<?php print $row["Some"]["id"] ;?>">ホームへ追加</a>
+			                            </span>
+		                            </div>
+		                        </td>
+		                    </tr>
+		                <?php endif; ?>
+
+		                    
+					<?php endforeach; ?>
+                </table>
+                
+			<?php endif; ?>
+
+            </div>
+
+    </div><!--class="container"-->
+</div>
+
+
+<br>
+<!--ページネーション-->
+
+
+
+
+<?php if ($this->Paginator->params()): ?>
+
+<?php $this->paginator->options(array('url' => array('?' => $query_string_url)));?>
+
+	<?php  echo $this->Paginator->counter(array('format' => '全%count%件' ));?>
+	<?php echo $this->Paginator->counter(array('format' => '{:page}/{:pages}'));?>
+	<br >
+	
+	<?php 
+	
+		if($this->Paginator->params()["prevPage"]){
+			echo $this->Paginator->prev('< 前へ', array(), null, array('class' => 'prev disabled'));
+		}
+	?>
+	<?php
+	echo $this->Paginator->numbers(array('separator' => ''));
+	?>
+	<?php 
+		if($this->Paginator->params()["nextPage"]){
+			echo $this->Paginator->next('次へ >', array(), null, array('class' => 'next disabled'));
+		}	
+	?>
+
+<?php endif; ?>
+
+
+
+
+<!--ページネーション-->
+
+
+
+
+  <?php echo $this->element('footer'); ?>
+

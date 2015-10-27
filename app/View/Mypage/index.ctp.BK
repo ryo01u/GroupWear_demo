@@ -1,0 +1,111 @@
+  <?php echo $this->element('header'); ?>
+
+  <header>
+  <div class="container">
+  <section class="row">
+  <h1>
+  	<img src="<?php echo $this->html->webroot( "img/logo.png");?>" alt="画像" />
+  	
+  </h1>
+  </section>
+  </div>
+  </header>
+  <nav>
+  <div class="container">
+  <ul class="row">
+  <li class="col-sm-3 on"><a href="<?php echo URI_PATH; ?>/top/">MyPage</a></li>
+  <li class="col-sm-3"><a href="<?php echo URI_PATH; ?>/top/">Search</a></li>
+  </ul>
+  </div>
+  </nav>
+  <article>
+  <div class="container">
+  <ul class="row">
+  <li class="col-sm-3">
+  <section>
+
+
+  <dl>
+  <dt><img src="<?php echo $this->html->webroot( "img/data/i02.png");?>" alt="画像" /></dt>
+  <dd>
+  
+
+
+
+<?php foreach ($staff as $row): ?>
+
+
+		<?php var_dump($row) ; ?>aaa
+
+
+
+
+
+		<tr>
+			<td>
+				<a href="<?php echo URL_PATH_ADMIN; ?>/registstaff/action/<?php echo $row['Staff']['id']; ?>">
+				<?php echo $row['Staff']['staff_id']; ?>
+				
+			</td>
+
+			<td>
+				<?php echo $sex[$row['Staff']['sex']]; ?>　
+			</td>
+
+				
+			<td>
+				<?php echo $row['Staff']['name']; ?>　
+			</td>
+
+			<td>
+				<?php echo $department[$row['Staff']['department_id']]; ?>　
+			</td>
+
+			<td>
+				<?php echo $group[$row['Staff']['group_id']]; ?>　
+			</td>
+
+			<td>
+				<?php echo $position[$row['Staff']['position_id']]; ?>　
+			</td>
+
+			<td>
+				<?php echo $job[$row['Staff']['job']]; ?>　
+			</td>
+			
+			<td>
+				<a href="<?php echo URL_PATH_ADMIN; ?>/registstaff/del/<?php echo $row['Staff']['id']; ?>">削除<br /></a>
+			</td>
+		</tr>
+
+
+
+<?php endforeach; ?>
+
+
+
+
+
+  <p>嵯峨 博士</p>
+  <p>Saga Hiroshi</p>
+  <p>内線 111</p>
+  </dd>
+  </dl>
+
+  <p>モバイル事業部</p>
+  <p>第3グループ</p>
+
+  </section>
+  </li>
+
+
+
+
+
+  </ul>
+  </div>
+  
+  </article> 
+
+  <?php echo $this->element('footer'); ?>
+

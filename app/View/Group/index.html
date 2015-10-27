@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+
+        <meta http-equiv="Pragma" content="no-cache">
+        <meta http-equiv="cache-control" content="no-cache">
+        <meta http-equiv="expires" content="0">
+
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Qrater:Qrater is a project management tool for in-house.</title>
+
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="../../webroot/css/bootstrap.min.css" type="text/css" >
+        <link rel="stylesheet" href="../../webroot/css/main.css" type="text/css" >
+        <link rel="stylesheet" href="../../webroot/css/bass_sp.css" type="text/css" media="screen and (max-width: 768px)">
+        <link rel="stylesheet" href="../../webroot/css/bass_pc.css" type="text/css" media="screen and (min-width: 768px)">
+
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+    </head>
+   <body>
+    <div class="bass_header_01">
+        <div class="container">
+            <div class="row">
+                <p class="bass_logo_01">
+                    <img src="../../webroot/img/logo.png" alt="Qrater" >
+                </p>
+                <div class="heder_list">
+
+                    <?php if ( isset($user_name)  ): ?>
+                    <ul>
+                        <li class="info"><span>総務部・座席表変更のお知らせ</span></li>
+                        <li class="name"><span>様</span></li>
+                        <li class="login"><span>
+
+                            <a href="<?php echo URI_PATH; ?>/users/logout/">ログアウト</a><br>
+                            </span>
+                        </li>
+
+                    </ul>
+
+                    <a href="<?php echo URI_PATH; ?>/admin/index/">管理者メニュー</a><br>
+                </div></div>
+        </div>
+    </div>
+    <div class="bass_nav_01">
+        <div class="container">
+            <ul class="row">
+                <li class="col-sm-3 on"><a href="/mypage/index">ホーム</a></li>
+                <li class="col-sm-3"><a href="/top/index">さがす</a></li>
+                <!--<li class="col-sm-3">MyPage</li>
+<li class="col-sm-3">Search</li>-->
+            </ul>
+        </div>
+    </div>
+
+
+
+       <div class="bass_maincontents_01 staff_dtail">
+           <div class="container bass_detail_01">
+               <div class="row">
+                   <p class="bass_title_01">グループ情報：TFMグループ</p>
+               </div>
+               <div class="row detail_comment">
+                   <div class="col-sm-2 col-xs-2 person">
+                       <p class="photo"><img src="../../webroot/img/news/noimage.jpg" alt="画像"></p>
+                           <p class="name">85</p>
+                       </div>
+                   <div class="col-sm-8 col-xs-10 comment">
+                           <div class="inner on">
+                               <em>
+                                   <p>2015-02-19 18:34:49</p>
+                                   <p><strong>【号外】</strong></p><br>
+                                   <p>ISISじゃないよ</p>
+                                   <p>ISISじゃないよ</p>
+                               </em>
+                        </div>
+                       </div>
+               </div>
+               <div class="row detail_contents_wrap">
+
+                   <div class="row">
+                       <div class="bass_seccard_01 col-sm-3">
+                           <div class="inner">
+                               <div class="name">wikipedia</div>
+                               <div class="twocol">
+                                   <div class="icon">
+                                       <img src="../../webroot/img/news/noimage.jpg" alt="画像">
+                                   </div>
+                                   <div>
+
+                                       <p>モバイル事業部<br>第3グループ</p>
+                                   </div>
+                               </div>
+                               <p>泳ぎが得意であり、水中での生活に適応している。また、ラッコ以外のカワウソは陸上でも自由に行動している。南極、オーストラリア、ニュージーランドを除く、世界全域の水辺や海上で生息している。水かきをもった四肢は短く、胴体は細長い。このような体型は水の抵抗が少なく、敏捷な泳ぎを可能にしている。</p>
+                           </div>
+                       </div>
+                       <div class="bass_seccard_01 col-sm-3">
+                           <div class="inner">
+                               <div class="name">wikipedia</div>
+                               <div class="twocol">
+                                   <div class="icon">
+                                       <img src="../../webroot/img/news/noimage.jpg" alt="画像">
+                                   </div>
+                                   <div>
+
+                                       <p>モバイル事業部<br>第3グループ</p>
+                                   </div>
+                               </div>
+                               <p>泳ぎが得意であり、水中での生活に適応している。また、ラッコ以外のカワウソは陸上でも自由に行動している。</p>
+                           </div>
+                       </div>                       <div class="bass_seccard_01 col-sm-3">
+                       <div class="inner">
+                           <div class="name">wikipedia</div>
+                           <div class="twocol">
+                               <div class="icon">
+                                   <img src="../../webroot/img/news/noimage.jpg" alt="画像">
+                               </div>
+                               <div>
+
+                                   <p>モバイル事業部<br>第3グループ</p>
+                               </div>
+                           </div>
+                           <p>泳ぎが得意であり、水中での生活に適応している。また、ラッコ以外のカワウソは陸上でも自由に行動している。南極、オーストラリア、ニュージーランドを除く、世界全域の水辺や海上で生息している。水かきをもった四肢は短く、胴体は細長い。このような体型は水の抵抗が少なく、敏捷な泳ぎを可能にしている。</p>
+                       </div>
+                       </div>
+                       <div class="bass_seccard_01 col-sm-3">
+                           <div class="inner">
+                               <div class="name">wikipedia</div>
+                               <div class="twocol">
+                                   <div class="icon">
+                                       <img src="../../webroot/img/news/noimage.jpg" alt="画像">
+                                   </div>
+                                   <div>
+
+                                       <p>モバイル事業部<br>第3グループ</p>
+                                   </div>
+                               </div>
+                               <p>泳ぎが得意であり、水中での生活に適応している。また、ラッコ以外のカワウソは陸上でも自由に行動している。</p>
+                           </div>
+                       </div>
+                       <div class="bass_seccard_01 col-sm-3">
+                           <div class="inner">
+                               <div class="name">wikipedia</div>
+                               <div class="twocol">
+                                   <div class="icon">
+                                       <img src="../../webroot/img/news/noimage.jpg" alt="画像">
+                                   </div>
+                                   <div>
+
+                                       <p>モバイル事業部<br>第3グループ</p>
+                                   </div>
+                               </div>
+                               <p>泳ぎが得意であり、水中での生活に適応している。また、ラッコ以外のカワウソは陸上でも自由に行動している。南極、オーストラリア、ニュージーランドを除く、世界全域の水辺や海上で生息している。水かきをもった四肢は短く、胴体は細長い。このような体型は水の抵抗が少なく、敏捷な泳ぎを可能にしている。</p>
+                           </div>
+                       </div>
+                       <div class="bass_seccard_01 col-sm-3">
+                           <div class="inner">
+                               <div class="name">wikipedia</div>
+                               <div class="twocol">
+                                   <div class="icon">
+                                       <img src="../../webroot/img/news/noimage.jpg" alt="画像">
+                                   </div>
+                                   <div>
+
+                                       <p>モバイル事業部<br>第3グループ</p>
+                                   </div>
+                               </div>
+                               <p>泳ぎが得意であり、水中での生活に適応している。また、ラッコ以外のカワウソは陸上でも自由に行動している。</p>
+                           </div>
+                       </div>
+
+
+                   </div>
+               </div>
+               <div class="row detail_btn">
+                   <div class="col-sm-6 btn">
+                       <a>西畑雄祐団の取引先一覧(電話帳)へ</a>
+                   </div>
+                   <div class="col-sm-6 btn">
+                       <a>西畑雄祐団の取引先一覧(電話帳)へ</a>
+                   </div>
+              </div>
+
+           </div><!--class="container"-->
+       </div>
+
+       <?php echo $this->element('footer'); ?>

@@ -1,0 +1,44 @@
+<?php echo $this->element('header'); ?>
+<?php echo $this->element('head'); ?>
+<?php echo $this->element('navi'); ?>
+  	  
+  	 
+    <div class="bass_maincontents_01">
+        <div class="container">
+            <div class="row">
+                <p class="bass_title_03">マイページ</p>
+            </div>
+            <div class="row">
+        	<?php foreach ($staff as $row): ?>
+            	<!-- <?php var_dump($row) ; ?>aaa -->
+                <div class="bass_seccard_01 col-sm-3">
+                         <div class="inner">
+                         	 <div class="name"><?php echo $row['Staff']['name']; ?></div>
+                             <div class="twocol">
+                              <div class="icon">
+<img src="<?php echo $this->html->webroot( "img/data/i02.png");?>" alt="画像" />
+                    </div>
+                    <div>
+                              
+                                <p><?php echo $row['Staff']['staff_id']; ?></p>
+                     <!-- <p><?php echo $department[$row['Staff']['department_id']]; ?></p> -->
+                    </div>
+                       </div>
+                        <p>モバイル事業部</p>
+                        <p>第3グループ</p>
+                        <p>モバイル事業部</p>
+                        <p>第3グループ</p>
+                        <p>モバイル事業部</p>
+                        <p>第3グループ</p>
+                        <p>モバイル事業部</p>
+                        <p>第3グループ</p>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+            </div><!--"row"-->
+        </div><!--class="container"-->
+    </div>
+    <!--class="bass_maincontents_01"-->
+
+<?php echo $this->element('footer'); ?>
+

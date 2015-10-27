@@ -1,0 +1,54 @@
+.col-sm-1,.col-sm-2,.col-sm-3,.col-sm-4,.col-sm-5,.col-sm-6,.col-sm-7,.col-sm-8,.col-sm-9,.col-sm-10{
+    padding:0;}
+
+/*.bass_header_01>div>div{
+    display: table}*/
+.bass_header_01 .bass_logo_01{
+}
+.bass_header_01 .row{
+    width: 100%;
+    display: table;
+}
+.bass_header_01 .row>div{}
+.bass_header_01 .row .info,
+.bass_header_01 .row .name{
+   margin: 13px 0;
+}
+.bass_header_01 .row>div>span{
+}
+.bass_header_01 .log p{
+    clear: both;
+    margin: 2% 5%;
+    width: 90%
+}
+.bass_header_01 .bass_logo_01 img{
+    margin: 9px 0 0;}
+.bass_sec_01>div{
+    display: table;}
+.bass_sec_01>div>p{
+    float: none;
+    display: table-cell;
+    vertical-align:middle;
+    padding: 5px 10px;}
+.login .container{
+    margin-top: 40px;
+}
+.login .container .bass_sec_01{
+    width: 50%;
+    margin:0 auto 0 0;
+}
+.table_row_wrap .table_row{
+    display: table;
+}
+.table_row_wrap .table_row .table_row_inr{
+    display: table-row;
+}
+.table_row_wrap .table_row .table_row_inr .inner{
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+.bass_sec_01 .bass_textarea_01 input {
+    width: 90%;
+    margin-right: 10%;
+}

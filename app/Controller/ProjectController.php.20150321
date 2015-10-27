@@ -1,0 +1,23 @@
+<?php
+
+class ProjectController extends AppController {
+	public $helpers = array('Html', 'Form');
+
+	public $layout = ""; // レイアウトファイルは使用しない
+
+
+	//モデル呼び出し
+	public $uses = array('Client');
+
+
+	public function detail($id=null) {
+
+
+		$this->render('detail');
+
+
+	}
+
+
+
+}

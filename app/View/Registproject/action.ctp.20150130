@@ -1,0 +1,136 @@
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
+
+<script type="text/javascript">
+<!--
+
+function disp(){
+
+	// 「OK」時の処理開始 ＋ 確認ダイアログの表示
+	if(window.confirm('本当にいいんですね？')){
+		location.href = "/registstaff/action"; // example_confirm.html へジャンプ
+	}
+	// 「OK」時の処理終了
+	// 「キャンセル」時の処理開始
+	else{
+		//window.alert('キャンセルされました'); // 警告ダイアログを表示
+	}
+	// 「キャンセル」時の処理終了
+
+}
+
+// -->
+</script>
+
+<!--
+<?php
+// 営業所切り替えのJS
+$this->Js->get('#StaffDepartmentId')->event(
+    'change',
+    $this->Js->request(
+        array('controller'=>'Registstaff','action'=>'ajax_group'),//url
+        array(
+            'update' => '#StaffGroupId',
+            'dataExpression' => true,
+            'data' => '$("#StaffDepartmentId").serialize()',
+		'complete' => '$("#StaffGroupId").change();'     //営業所を選んだら担当者も変える
+       )
+    )
+);
+  
+echo $this->Js->writeBuffer();
+?>
+  // -->
+
+<h2>プロジェクト登録</h2>
+<h3>追加／編集</h3>
+
+<!-- 追加編集フォーム -->
+
+<?php echo $this->Form->create('Staff', array('action'=>'post', 'url' =>  '/registproject/action' )); ?>
+
+
+	<table class="sheet">
+
+
+<?php echo $this->Form->input('Project.id',  array('type' => 'hidden',  'value'=>$id)); ?>
+
+		<tr>
+			<th width="170">
+			<td> 
+			   <?php echo $this->Form->input('Project.name',array('label'=>'プロジェクト名','required' => false  )); ?>
+			 	<?php // echo($errors["name"]["0"]) ; ?>
+			 
+			</td> 
+		</tr>
+
+		<tr>
+			<th width="170">
+			<td> 
+		<?php	
+			echo $this->Form->input( 'Project.akasatana', array(
+			'label' => 'あかさたな', 
+		    'type' => 'select', 
+		    'options' => $akasatana
+		    ));
+			?>
+			  
+			</td> 
+		</tr>
+
+
+		<tr>
+			<th width="170">
+			<td> 
+		<?php	
+			echo $this->Form->input( 'Project.project_type', array(
+			'label' => '種類', 
+		    'type' => 'select', 
+		    'options' => $project_type
+		    ));
+			?>
+			  
+			</td> 
+		</tr>
+
+
+
+		<tr>
+			<th width="170">
+			<td>
+			社員選択	<br />
+			
+			
+			<?php foreach ($staff as $row_staff): ?>
+							<?php $checked = null ; ?>					
+							<?php if (isset( $projectStaff)): ?>
+								<?php foreach ($projectStaff as $row_project_staff): ?>
+									<?php if ( $row_project_staff["ProjectStaff"]["staff_id"] == $row_staff["Staff"]["id"] ): ?>
+										<?php
+										$checked = "checked";
+										break ;
+										; ?>
+														
+									<?php endif; ?>
+								<?php endforeach; ?>
+							<?php endif; ?>
+			<input type="checkbox" name="data[ProjectStaff][staff_id][]" value="<?php print $row_staff["Staff"]["id"]; ?>" <?php print $checked; ?> >
+			<?php print $row_staff["Staff"]["name"]; ?><br />
+		
+			<?php endforeach; ?>
+			 
+			</td> 
+		</tr>
+
+
+	</table>
+
+
+	<input type="submit" value="送信">
+</form>
+
+<!-- 追加編集フォーム -->
+
+
+

@@ -1,0 +1,264 @@
+<?php echo $this->element('header'); ?>
+<?php echo $this->element('head'); ?>
+<?php echo $this->element('navi'); ?>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
+
+<script type="text/javascript">
+<!--
+
+function disp(){
+
+	// 「OK」時の処理開始 ＋ 確認ダイアログの表示
+	if(window.confirm('本当にいいんですね？')){
+		location.href = "/registstaff/action"; // example_confirm.html へジャンプ
+	}
+	// 「OK」時の処理終了
+	// 「キャンセル」時の処理開始
+	else{
+		//window.alert('キャンセルされました'); // 警告ダイアログを表示
+	}
+	// 「キャンセル」時の処理終了
+
+}
+
+// -->
+</script>
+
+<!--
+<?php
+// 営業所切り替えのJS
+$this->Js->get('#StaffDepartmentId')->event(
+    'change',
+    $this->Js->request(
+        array('controller'=>'Registstaff','action'=>'ajax_group'),//url
+        array(
+            'update' => '#StaffGroupId',
+            'dataExpression' => true,
+            'data' => '$("#StaffDepartmentId").serialize()',
+		'complete' => '$("#StaffGroupId").change();'     //営業所を選んだら担当者も変える
+       )
+    )
+);
+  
+echo $this->Js->writeBuffer();
+?>
+  // -->
+<div class="bass_maincontents_01">
+    <div class="container">
+        <div class="row">
+            <p class="bass_title_01">案件登録</p>
+        </div>
+         <div class="bass_sec_01">
+        <div class="row">
+            <p class="bass_title_02">追加／編集</p>
+         </div>
+    <div class="row">
+                <div class="col-sm-12">
+
+<!-- 追加編集フォーム -->
+
+<?php echo $this->Form->create('Staff', array('action'=>'post', 'url' =>  '/registproject/action' )); ?>
+
+</div>
+    </div>
+    <div class="row">
+                <div class="col-sm-4">
+
+
+<?php echo $this->Form->input('Project.id',  array('type' => 'hidden',  'value'=>$id)); ?>
+
+</div>
+    </div>
+    <div class="row">
+                <div class="col-sm-4">
+			   <?php echo $this->Form->input('Project.name',array('label'=>'案件名','required' => false  )); ?>
+			 	<?php // echo($errors["name"]["0"]) ; ?>
+</div>
+    </div>
+
+
+   <div class="row">
+                <div class="col-sm-4">
+
+	        <?php
+	            echo $this->Form->input( 'Project.project_group_id', array(
+	            'label' => 'グループ',
+	            'type' => 'select',
+	            'options' => $projectgroup
+	            ));
+	        ?>
+
+		</div>
+    </div>
+
+
+   <div class="row">
+                <div class="col-sm-4">
+		<?php	
+			echo $this->Form->input( 'Project.akasatana', array(
+			'label' => 'あかさたな', 
+		    'type' => 'select', 
+		    'options' => $akasatana
+		    ));
+			?>
+		</div>
+    </div>
+
+    <div class="row">
+                <div class="col-sm-4">
+		<?php	
+			echo $this->Form->input( 'Project.client_id', array(
+			'label' => '得意先名', 
+		    'type' => 'select', 
+		    'options' => $client
+		    ));
+			?>
+</div>
+    </div>
+
+   <!--  <div class="row">
+        <div class="col-sm-6">担当グループ</div>
+          <div class="col-sm-6 bass_select_01">
+        <?php
+            echo $this->Form->input( 'Project.group_id', array(
+            'label' => 'グループ',
+            'type' => 'select',
+            'options' => $department
+            ));
+            ?>
+        　　</div>
+    </div> -->
+
+    <div class="col-sm-12">
+	<?php	
+		echo $this->Form->input( 'Project.states', array(
+		'value' =>	$states,
+		'label' => '契約情報', 
+	    'type' => 'textarea', 
+	    'requierd' => 'false',
+	    ));
+		?>
+	</div>
+
+	<div class="col-sm-12">
+	<?php	
+		echo $this->Form->input( 'Project.markets', array(
+		'value' =>	$markets,
+		'label' => 'マーケット情報', 
+	    'type' => 'textarea', 
+	    'requierd' => 'false',
+	    ));
+		?>
+	</div>
+
+	<div class="col-sm-12">
+	<?php	
+		echo $this->Form->input( 'Project.memo', array(
+		'value' =>	$plane_memo,
+		'label' => '簡易スケジュールメモ', 
+	    'type' => 'textarea', 
+	    'requierd' => 'false',
+	    ));
+		?>
+	</div>
+
+    <div class="row">
+                <div class="col-sm-4">
+		<?php	
+			echo $this->Form->input( 'Project.project_type', array(
+			'label' => '種類', 
+		    'type' => 'select', 
+		    'options' => $project_type
+		    ));
+			?>
+</div>
+    </div>
+    <div class="row">
+                <div class="col-sm-4">
+			社員選択</div>
+    </div>
+    <div class="row">
+                <div class="col-sm-4">
+			<?php foreach ($department as $row_department): ?>
+				
+				[<?php print $row_department["Department"]["name"] ; ?>]</br>
+		
+					<?php foreach ($group as $row_group): ?>
+						<?php if ( $row_department["Department"]["id"] == $row_group["Group"]["department_id"] ): ?>
+							
+							・<?php print $row_group["Group"]["name"]; ?><br>
+							<?php // print $row_group["Group"]["id"]; ?>
+									<?php if ( isset($staffGroup)  ): ?>
+									<?php foreach ($staffGroup as $row_staff_group): ?>
+									
+											<?php if ( $row_staff_group["sg"]["group_id"] == $row_group["Group"]["id"] ): ?>
+												<?php $checked = null ; ?>
+											<?php if ( isset($projectStaff)  ): ?>	
+											<?php foreach ($projectStaff as $row_project_staff): ?>
+												<?php if ( $row_project_staff["ProjectStaff"]["staff_id"] == $row_staff_group["sg"]["staff_id"] ): ?>
+													<?php
+													$checked = "checked";
+													break ;
+													; ?>
+												<?php endif; ?>
+											<?php endforeach; ?>
+											<?php endif; ?>	
+												
+													☆<?php print ( $row_staff_group["s"]["staff_name"]) ; ?>
+						<input type="checkbox" name="data[ProjectStaff][staff_id][]" value="<?php print $row_staff_group["sg"]["staff_id"]; ?>" <?php print $checked; ?> >
+													<br>
+													
+											<?php endif; ?>					
+									<?php endforeach; ?>
+									
+									<?php endif; ?>						
+																							
+						<?php endif; ?>
+						
+					<?php endforeach; ?>
+				
+			<?php endforeach; ?>
+
+			
+			<br />
+			<!--
+			<?php foreach ($staff as $row_staff): ?>
+							<?php $checked = null ; ?>					
+							<?php if (isset( $projectStaff)): ?>
+								<?php foreach ($projectStaff as $row_project_staff): ?>
+									<?php if ( $row_project_staff["ProjectStaff"]["staff_id"] == $row_staff["Staff"]["id"] ): ?>
+										<?php
+										$checked = "checked";
+										break ;
+										; ?>
+														
+									<?php endif; ?>
+								<?php endforeach; ?>
+							<?php endif; ?>
+			<input type="checkbox" name="data[ProjectStaff][staff_id][]" value="<?php print $row_staff["Staff"]["id"]; ?>" <?php print $checked; ?> >
+			<?php print $row_staff["Staff"]["name"]; ?><br />
+		
+			<?php endforeach; ?>
+			-->
+ </div>
+    </div>
+    <div class="row">
+                <div class="col-sm-12 bass_btn">
+     	<input type="submit" value="送信">
+
+              </div>
+           </div>
+
+     </form>
+
+<!-- 追加編集フォーム -->
+
+            </div>
+        </div>
+        </div>
+<?php echo $this->element('footer'); ?>
+
+
+
+
